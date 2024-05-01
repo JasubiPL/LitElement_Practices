@@ -3,6 +3,12 @@ import "../components/Card.js"
 
 class HomePage extends LitElement{
 
+  static get properties(){
+    return {
+      data: { type: Array }
+    }
+  }
+
   static get styles(){
     return css`
       nav{
@@ -25,21 +31,20 @@ class HomePage extends LitElement{
 
   constructor(){
     super()
-    this.data = null;
+    this.data = [];
   }
 
-  connectedCallback(){
-    super.connectedCallback()
+  firstUpdated(){
     this.getData()
   }
 
   async getData(){
     try{
       const resp = await fetch("https://rickandmortyapi.com/api/character") 
+      const characters = await resp.json()
 
-    this.data = await resp.json()
-    this.requestUpdate()
-    console.log(this.data.results)
+      this.data = characters.results
+      console.log(this.data.results)
     }catch (error) {
       console.error('There was a problem with your fetch operation:', error);
     }
@@ -50,7 +55,7 @@ class HomePage extends LitElement{
       <nav> <h1>Consimo de API</h1> </nav>
 
       <main>
-        ${this.data.results.map(character => html`
+        ${this.data.map(character => html`
           <app2-card urlImg=${ character.image } name=${character.name}></app2-card>
         `)}
       </main>
