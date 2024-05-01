@@ -1,11 +1,13 @@
 import { LitElement, html, css } from "lit-element"
 import "../components/Card.js"
+import "../components/DataCharacter.js"
 
 class HomePage extends LitElement{
 
   static get properties(){
     return {
-      data: { type: Array }
+      data: { type: Array },
+      modal: { type: Object }
     }
   }
 
@@ -32,10 +34,27 @@ class HomePage extends LitElement{
   constructor(){
     super()
     this.data = [];
+    this.modal = html``;
   }
 
   firstUpdated(){
     this.getData()
+  }
+
+  showModal(characterData, closeModal){
+    this.modal = html`
+    <app2-datacharacter 
+      name="${characterData.name} "
+      urlImage="${characterData.image}"
+      status="${characterData.status}"
+      species="${characterData.species}"
+      gender="${characterData.gender}"
+      .closeModal=${() => this.closeModal()}
+    ></app2-datacharacter>`
+  }
+
+  closeModal(){
+    this.modal = html``
   }
 
   async getData(){
@@ -53,10 +72,11 @@ class HomePage extends LitElement{
   render(){
     return html`
       <nav> <h1>Consimo de API</h1> </nav>
+      ${this.modal}
 
       <main>
         ${this.data.map(character => html`
-          <app2-card urlImg=${ character.image } name=${character.name}></app2-card>
+          <app2-card @click="${() => this.showModal(character, this.closeModal)}" urlImg="${ character.image }" name="${character.name}"></app2-card>
         `)}
       </main>
 

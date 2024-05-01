@@ -13,7 +13,7 @@ class Card extends LitElement{
       .card{
         width: 100%;
         max-width: 450px;
-        background-color: #2b3784;
+        background-color: #2d572c;
         margin: 0 auto;
         margin-top: 80px;
         border-radius: 20px;
