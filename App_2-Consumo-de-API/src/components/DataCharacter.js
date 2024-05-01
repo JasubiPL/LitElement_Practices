@@ -17,6 +17,10 @@ class DataCharacter extends LitElement{
     console.log(this.dataChar)
   }
 
+  closeModal(){
+    this.dispatchEvent(new CustomEvent("closeModal"))
+  }
+
 
   static get styles(){
     return css`

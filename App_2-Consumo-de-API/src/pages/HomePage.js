@@ -41,17 +41,16 @@ class HomePage extends LitElement{
     this.getData()
   }
 
-  showModal(characterData){
+  _showModal(characterData){
 
     this.dataChar = characterData
     this.modal = html`
-    <app2-datacharacter 
-      .dataChar=${this.dataChar}
-      .closeModal=${() => this.closeModal()}
+    <app2-datacharacter .dataChar=${this.dataChar}
+      @click=${() => this._closeModalHandler()}
     ></app2-datacharacter>`
   }
 
-  closeModal(){
+  _closeModalHandler(){
     this.modal = html``
   }
 
@@ -74,7 +73,7 @@ class HomePage extends LitElement{
 
       <main>
         ${this.data.map(character => html`
-          <app2-card @click="${() => this.showModal(character)}" urlImg="${ character.image }" name="${character.name}"></app2-card>
+          <app2-card @click="${() => this._showModal(character)}" urlImg="${ character.image }" name="${character.name}"></app2-card>
         `)}
       </main>
 
