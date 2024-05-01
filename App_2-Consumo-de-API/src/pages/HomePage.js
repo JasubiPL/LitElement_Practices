@@ -7,7 +7,7 @@ class HomePage extends LitElement{
   static get properties(){
     return {
       data: { type: Array },
-      modal: { type: Object }
+      modal: { type: Object },
     }
   }
 
@@ -41,14 +41,12 @@ class HomePage extends LitElement{
     this.getData()
   }
 
-  showModal(characterData, closeModal){
+  showModal(characterData){
+
+    this.dataChar = characterData
     this.modal = html`
     <app2-datacharacter 
-      name="${characterData.name} "
-      urlImage="${characterData.image}"
-      status="${characterData.status}"
-      species="${characterData.species}"
-      gender="${characterData.gender}"
+      .dataChar=${this.dataChar}
       .closeModal=${() => this.closeModal()}
     ></app2-datacharacter>`
   }
@@ -76,7 +74,7 @@ class HomePage extends LitElement{
 
       <main>
         ${this.data.map(character => html`
-          <app2-card @click="${() => this.showModal(character, this.closeModal)}" urlImg="${ character.image }" name="${character.name}"></app2-card>
+          <app2-card @click="${() => this.showModal(character)}" urlImg="${ character.image }" name="${character.name}"></app2-card>
         `)}
       </main>
 

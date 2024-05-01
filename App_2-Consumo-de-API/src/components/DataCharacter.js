@@ -3,14 +3,20 @@ import { LitElement, html, css } from "lit-element"
 class DataCharacter extends LitElement{
   static get properties(){
     return{
-      urlImage: { type: String },
-      name: { type: String },
-      status: { type: String },
-      species: { type: String },
-      gender: { type: String },
+      dataChar: { type: Object , reflect: true},
       closeModal:{ type: Function }
     }
   }
+
+  constructor(){
+    super();
+    this.dataChar = {};
+  }
+
+  firstUpdated(){
+    console.log(this.dataChar)
+  }
+
 
   static get styles(){
     return css`
@@ -82,14 +88,14 @@ class DataCharacter extends LitElement{
     <section class="modal-container">
       <div class="character-card">
         <div class="character-card__image">
-          <img src="${this.urlImage}" alt="${this.name}" />
+          <img src="${this.dataChar.image}" alt="${this.dataChar.name}" />
         </div>
         <div class="character-card__data">
           <ul>
-            <li><span>Nombre:</span> ${this.name}</li>
-            <li><span>Estatus:</span> ${this.status}</li>
-            <li><span>Especie:</span> ${this.species}</li>
-            <li><span>Genero:</span> ${this.gender}</li>
+            <li><span>Nombre:</span> ${this.dataChar.name}</li>
+            <li><span>Estatus:</span> ${this.dataChar.status}</li>
+            <li><span>Especie:</span> ${this.dataChar.species}</li>
+            <li><span>Genero:</span> ${this.dataChar.gender}</li>
           </ul>
 
           <button @click=${this.closeModal}>Cerrar</button>
