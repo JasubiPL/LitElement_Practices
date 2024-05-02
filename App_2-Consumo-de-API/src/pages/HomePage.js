@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit-element"
 import "../components/Card.js"
 import "../components/DataCharacter.js"
+import "../components/Favorites.js"
 
 class HomePage extends LitElement{
 
@@ -8,6 +9,7 @@ class HomePage extends LitElement{
     return {
       data: { type: Array },
       modal: { type: Object },
+      favLis: { type: Array }
     }
   }
 
@@ -22,7 +24,7 @@ class HomePage extends LitElement{
 
       main{
         margin: 0 auto;
-        max-width: 70%;
+        max-width: 60%;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 30px;
@@ -35,18 +37,23 @@ class HomePage extends LitElement{
     super()
     this.data = [];
     this.modal = html``;
+    this.favLis = [];
   }
 
   firstUpdated(){
     this.getData()
+
+    let closeModal = new CustomEvent("close-modal")
+    this.dispatchEvent(closeModal)
   }
 
   _showModal(characterData){
 
     this.dataChar = characterData
     this.modal = html`
-    <app2-datacharacter .dataChar=${this.dataChar}
-      @click=${() => this._closeModalHandler()}
+    <app2-datacharacter 
+      .dataChar=${this.dataChar}
+      @close-modal=${this._closeModalHandler}
     ></app2-datacharacter>`
   }
 
@@ -70,6 +77,7 @@ class HomePage extends LitElement{
     return html`
       <nav> <h1>Consimo de API</h1> </nav>
       ${this.modal}
+      <app2-favorites></app2-favorites>
 
       <main>
         ${this.data.map(character => html`

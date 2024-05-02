@@ -4,7 +4,6 @@ class DataCharacter extends LitElement{
   static get properties(){
     return{
       dataChar: { type: Object , reflect: true},
-      closeModal:{ type: Function }
     }
   }
 
@@ -13,12 +12,12 @@ class DataCharacter extends LitElement{
     this.dataChar = {};
   }
 
-  firstUpdated(){
-    console.log(this.dataChar)
+  closeModal(){
+    this.dispatchEvent(new CustomEvent("close-modal"))
   }
 
-  closeModal(){
-    this.dispatchEvent(new CustomEvent("closeModal"))
+  _addToFav(id){
+    this.dispatchEvent(new CustomEvent("addToFav", { detail: { id: id}}))
   }
 
 
@@ -60,6 +59,7 @@ class DataCharacter extends LitElement{
           justify-content: space-between;
           align-items:flex-start;
           padding: 0px 20px;
+          width: 50%;
 
           ul {
             list-style: none;
@@ -73,7 +73,12 @@ class DataCharacter extends LitElement{
             }
           }
 
-          button{
+          div{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            button{
             background-color:#2d572c;
             padding: 5px 10px;
             border: none;
@@ -81,10 +86,12 @@ class DataCharacter extends LitElement{
             border-radius: 3px;
             color:white;
           }
+          }
         }
       }
     `
   }
+
 
 
   render(){
@@ -102,7 +109,12 @@ class DataCharacter extends LitElement{
             <li><span>Genero:</span> ${this.dataChar.gender}</li>
           </ul>
 
-          <button @click=${this.closeModal}>Cerrar</button>
+          <div >
+            <button @click=${this.closeModal}>Cerrar</button>
+            <button @click=${() => this._addToFav(this.dataChar.id) } >Favorito ⭐</button>
+          </div>
+
+
         </div>
       </div>
     </section>
