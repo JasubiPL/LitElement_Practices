@@ -18,7 +18,7 @@ class DataCharacter extends LitElement{
 
   _addToFav(id, name){
     const data = { id, name}
-    document.dispatchEvent(new CustomEvent("add-to-fav", { detail: data}))
+    this.dispatchEvent(new CustomEvent("add-to-fav", { detail: data}))
   }
 
 

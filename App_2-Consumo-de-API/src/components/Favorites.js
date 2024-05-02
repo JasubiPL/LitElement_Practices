@@ -52,14 +52,8 @@ class Favorites extends LitElement {
     this.favList = [];
   }
 
-  connectedCallback(){
-    super.connectedCallback()
-    document.addEventListener("add-to-fav", this._addFav)
-  }
-
-  disconnectedCallback(){
-    super.disconnectedCallback()
-    document.removeEventListener("add-to-fav", this._addFav)
+  firstUpdated(){
+    document.addEventListener("add-to-fav", this._addFav.bind(this))
   }
 
   _addFav = (e) => {
