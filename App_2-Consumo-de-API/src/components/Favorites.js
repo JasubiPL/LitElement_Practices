@@ -43,13 +43,33 @@ class Favorites extends LitElement {
 
   static get properties(){
     return{
-      favList: { type: Array }
+      favList: { type: Array },
     }
   }
 
   constructor(){
     super()
-    this.favList = [{ name: "fav 1"},{ name: "fav 2"},{ name: "fav 3"}];
+    this.favList = [];
+  }
+
+  connectedCallback(){
+    super.connectedCallback()
+    document.addEventListener("add-to-fav", this._addFav)
+  }
+
+  disconnectedCallback(){
+    super.disconnectedCallback()
+    document.removeEventListener("add-to-fav", this._addFav)
+  }
+
+  _addFav = (e) => {
+    if(!this.favList.some( fav => fav.name === e.detail.name)){
+      
+      this.favList = [...this.favList, e.detail]
+    }else{
+      alert("Ya existe en tu lista de favoritos")
+    }
+
   }
 
   _deleteFav(id){

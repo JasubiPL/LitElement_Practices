@@ -3,7 +3,7 @@ import { LitElement, html, css } from "lit-element"
 class DataCharacter extends LitElement{
   static get properties(){
     return{
-      dataChar: { type: Object , reflect: true},
+      dataChar: { type: Object , },
     }
   }
 
@@ -16,8 +16,9 @@ class DataCharacter extends LitElement{
     this.dispatchEvent(new CustomEvent("close-modal"))
   }
 
-  _addToFav(id){
-    this.dispatchEvent(new CustomEvent("addToFav", { detail: { id: id}}))
+  _addToFav(id, name){
+    const data = { id, name}
+    document.dispatchEvent(new CustomEvent("add-to-fav", { detail: data}))
   }
 
 
@@ -111,7 +112,7 @@ class DataCharacter extends LitElement{
 
           <div >
             <button @click=${this.closeModal}>Cerrar</button>
-            <button @click=${() => this._addToFav(this.dataChar.id) } >Favorito ⭐</button>
+            <button @click=${() => this._addToFav(this.dataChar.id, this.dataChar.name) } >Favorito ⭐</button>
           </div>
 
 

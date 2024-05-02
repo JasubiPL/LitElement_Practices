@@ -9,7 +9,6 @@ class HomePage extends LitElement{
     return {
       data: { type: Array },
       modal: { type: Object },
-      favLis: { type: Array }
     }
   }
 
@@ -37,14 +36,10 @@ class HomePage extends LitElement{
     super()
     this.data = [];
     this.modal = html``;
-    this.favLis = [];
   }
 
   firstUpdated(){
     this.getData()
-
-    let closeModal = new CustomEvent("close-modal")
-    this.dispatchEvent(closeModal)
   }
 
   _showModal(characterData){
