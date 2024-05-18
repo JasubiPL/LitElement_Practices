@@ -70,7 +70,7 @@ class HomePage extends LitElement{
 
   render(){
     return html`
-      <nav> <h1>Consimo de API</h1> </nav>
+      <nav> <h1>Consimo de API Test</h1> </nav>
       ${this.modal}
       <app2-favorites></app2-favorites>
 
